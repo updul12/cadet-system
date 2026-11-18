@@ -1,0 +1,2 @@
+# error/ — pages must be reachable by Apache ErrorDocument
+Options -Indexes

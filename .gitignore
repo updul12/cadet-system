@@ -1,0 +1,21 @@
+# Secrets / local environment
+.env
+.env.*
+!.env.example
+
+# Uploaded user content & logs (keep folder structure, not the files)
+storage/photos/*
+!storage/photos/.htaccess
+storage/logs/*
+!storage/logs/.htaccess
+
+# Logs
+*.log
+
+# OS / editor noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+*.swp
+.idea/
+.vscode/

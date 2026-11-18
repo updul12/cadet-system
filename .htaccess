@@ -1,0 +1,55 @@
+# Cadet Unit MS — Apache hardening (works at the domain root or in a subfolder)
+
+# No directory listings
+Options -Indexes
+
+# ---------------------------------------------------------------------------
+# Branded, portable error pages. All targets are RELATIVE to this folder, so
+# they work whether the app lives at / or at /some/subfolder/, and the PHP
+# pages set their own status codes. Requires mod_rewrite.
+#
+# Note: for paths covered by the FilesMatch deny rules below, Apache checks
+# authorisation before mod_rewrite runs, so those requests get a plain (but
+# still denied) Apache 403 — unless the app is deployed at the domain root,
+# where the ErrorDocument fallback below serves the branded page instead.
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Dumps, docs, env files, editor junk — branded 403 if FilesMatch is
+    # ever removed; harmless belt-and-braces while it is still there.
+    RewriteRule \.(sql|md|log|ini|yml|yaml|bak|old|dist|sh|env|json)$ error/403.php [L,NC]
+
+    # Hidden files and folders — this one DOES run for paths FilesMatch
+    # misses, e.g. .git/config (FilesMatch only sees the basename "config").
+    RewriteRule (^|/)\. error/403.php [L]
+
+    # Anything that is not a real file or directory → branded 404
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ error/404.php [L]
+</IfModule>
+
+# Fallback for statuses Apache raises itself when mod_rewrite cannot act
+# (403 from the deny rules below, 500 from a fatal error). Resolved from the
+# domain root — if you deploy into a subdirectory, prepend it to these paths.
+ErrorDocument 403 /error/403.php
+ErrorDocument 404 /error/404.php
+ErrorDocument 500 /error/500.php
+
+# Never serve DB dumps, schema, backups, env or docs
+<FilesMatch "\.(sql|md|log|ini|yml|yaml|bak|old|dist|sh|env|json)$">
+    Require all denied
+</FilesMatch>
+
+# Deny direct access to hidden dotfiles (.env, .git, etc.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Security headers — clickjacking, MIME-sniffing, referrer leakage
+<IfModule mod_headers.c>
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-Content-Type-Options "nosniff"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

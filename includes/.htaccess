@@ -1,0 +1,5 @@
+# includes/ — never list, never serve PHP directly (require-only)
+Options -Indexes
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>

@@ -1,0 +1,5 @@
+# config/ — never list, never serve PHP directly
+Options -Indexes
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>

@@ -1,0 +1,14 @@
+# Deny direct script execution in storage (uploaded files are never executed)
+<FilesMatch "\.(php|phtml|php3|php4|php5|phps|phar|pl|py|cgi|sh|exe|js)$">
+    Require all denied
+</FilesMatch>
+Options -Indexes -ExecCGI
+RemoveHandler .php .phtml .php3 .php4 .php5 .phps .phar
+RemoveType .php .phtml
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+# Never serve dumps or logs
+<FilesMatch "\.(log|sql|md)$">
+    Require all denied
+</FilesMatch>

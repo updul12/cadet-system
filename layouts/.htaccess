@@ -1,0 +1,5 @@
+# layouts/ — never list, never serve PHP directly (included via require only)
+Options -Indexes
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>

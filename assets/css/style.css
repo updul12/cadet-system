@@ -1,0 +1,564 @@
+/* =====================================================================
+ * Cadet Unit MS — 60-30-10 theme on top of Bootstrap 5
+ *
+ * 60%  Soft slate / white canvas  #F4F6F9 · #FFFFFF · borders #E5E7EB
+ * 30%  Dark navy structure        #0F2942 (top bar) · #0A192F (deep)
+ * 10%  Accents                    AF blue #0072CE · Ghana gold #FCD116
+ *      Ghana green #006B3F (success) · Ghana red #CE1126 (alerts)
+ *      Charcoal #111827 (text & borders)
+ * ===================================================================== */
+
+:root {
+  --cus-navy: #0f2942;
+  --cus-navy-deep: #0a192f;
+  --cus-slate: #f4f6f9;
+  --cus-white: #ffffff;
+  --cus-border: #e5e7eb;
+  --cus-blue: #0072ce;
+  --cus-blue-dark: #005ba3;
+  --cus-blue-soft: #5d8aa8;
+  --cus-gold: #fcd116;
+  --cus-green: #006b3f;
+  --cus-red: #ce1126;
+  --cus-ink: #111827;
+  --cus-muted: #6b7280;
+}
+
+body {
+  font-size: 0.95rem;
+  color: var(--cus-ink);
+  background-color: var(--cus-slate);
+}
+
+/* Logo watermark on the system background (set via --cus-watermark) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--cus-watermark, none);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: min(46vw, 540px) auto;
+  opacity: 0.05;
+}
+
+a {
+  color: var(--cus-blue);
+}
+a:hover {
+  color: var(--cus-navy);
+}
+
+.letter-spaced {
+  letter-spacing: 0.06em;
+  font-size: 0.72rem;
+}
+
+/* ---------------------------------------------------------------------
+ * Navbar — dark navy (30%) with white labels, AF-blue active pill,
+ * gold shield accent
+ * ------------------------------------------------------------------- */
+.cus-navbar {
+  background-color: var(--cus-navy);
+  border-bottom: 3px solid var(--cus-blue);
+}
+.cus-navbar .navbar-brand,
+.cus-navbar .navbar-brand:hover {
+  color: var(--cus-white);
+}
+.brand-name {
+  color: var(--cus-white);
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.brand-shield {
+  color: var(--cus-gold);
+  font-size: 1.35rem;
+}
+.brand-logo {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  background: var(--cus-white);
+  border-radius: 0.3rem;
+  padding: 2px;
+}
+.cus-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  font-size: 0.925rem;
+}
+.cus-navbar .nav-link:hover,
+.cus-navbar .nav-link:focus {
+  color: var(--cus-white);
+}
+.cus-navbar .nav-link.active,
+.cus-navbar .nav-link[aria-expanded="true"] {
+  background-color: var(--cus-blue);
+  color: var(--cus-white);
+  border-radius: 0.4rem;
+  font-weight: 600;
+}
+.cus-navbar .navbar-toggler {
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.cus-navbar .navbar-toggler:focus {
+  box-shadow: 0 0 0 0.15rem rgba(252, 209, 22, 0.45);
+}
+.cus-navbar .navbar-toggler-icon {
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.85)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+.cus-navbar .dropdown-menu {
+  background: var(--cus-white);
+  border: 1px solid var(--cus-border);
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 1rem rgba(10, 25, 47, 0.14);
+  min-width: 14rem;
+  padding: 0.4rem;
+}
+.cus-navbar .dropdown-item {
+  color: var(--cus-ink);
+  font-size: 0.925rem;
+  border-radius: 0.3rem;
+  padding: 0.45rem 0.7rem;
+}
+.cus-navbar .dropdown-item:hover,
+.cus-navbar .dropdown-item:focus {
+  background-color: var(--cus-slate);
+  color: var(--cus-navy);
+}
+.cus-navbar .dropdown-item.active,
+.cus-navbar .dropdown-item:active {
+  background-color: var(--cus-blue);
+  color: var(--cus-white);
+}
+.cus-navbar .dropdown-divider {
+  border-color: var(--cus-border);
+}
+.nav-avatar {
+  border: 2px solid rgba(252, 209, 22, 0.75); /* gold accent ring */
+}
+
+/* Navbar comfort on tablets */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .cus-navbar .navbar-nav .nav-link {
+    padding-left: 0.45rem;
+    padding-right: 0.45rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Avatars — photo or initials (navy / slate / blue swatches)
+ * ------------------------------------------------------------------- */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cus-white);
+  font-weight: 600;
+  line-height: 1;
+  object-fit: cover;
+  flex-shrink: 0;
+  overflow: hidden;
+  border: 1px solid rgba(17, 24, 39, 0.12);
+  user-select: none;
+}
+.settings-avatar {
+  box-shadow: 0 0 0 4px rgba(0, 114, 206, 0.16);
+}
+
+/* ---------------------------------------------------------------------
+ * Cards — white (60%) with subtle gray frames
+ * ------------------------------------------------------------------- */
+.card {
+  background-color: var(--cus-white);
+  border: 1px solid var(--cus-border);
+}
+.card-header {
+  background-color: var(--cus-white);
+  border-bottom: 1px solid var(--cus-border);
+  color: var(--cus-ink);
+}
+.card-header.bg-white {
+  background-color: var(--cus-white) !important;
+}
+
+.min-w-0 {
+  min-width: 0;
+}
+.text-break {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.list-group-item strong {
+  display: inline-block;
+  max-width: 100%;
+}
+.list-group-item {
+  color: var(--cus-ink);
+  background-color: var(--cus-white);
+  border-color: var(--cus-border);
+}
+.list-group-item-action:hover,
+.list-group-item-action:focus {
+  color: var(--cus-ink);
+  background-color: var(--cus-slate);
+}
+
+.quick-card {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.quick-card:hover {
+  transform: translateY(-2px);
+  /* gold active-border highlight (accent used sparingly) */
+  box-shadow: 0 0.5rem 1rem rgba(10, 25, 47, 0.14), inset 0 3px 0 var(--cus-gold) !important;
+}
+
+/* ---------------------------------------------------------------------
+ * Tables — navy header block (structure), white body
+ * ------------------------------------------------------------------- */
+.table {
+  --bs-table-color: var(--cus-ink);
+  --bs-table-bg: var(--cus-white);
+  --bs-table-border-color: var(--cus-border);
+}
+.table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: #e9edf3;
+  color: var(--cus-ink);
+  border-bottom-width: 1px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+.table thead.table-dark th,
+.table thead th.table-dark,
+.table-dark thead th {
+  background-color: var(--cus-navy) !important;
+  color: var(--cus-white) !important;
+  border-color: #1b3350 !important;
+}
+.table-dark {
+  --bs-table-bg: var(--cus-navy);
+  --bs-table-color: var(--cus-white);
+  --bs-table-border-color: #1b3350;
+}
+.table > tbody > tr > td {
+  color: var(--cus-ink);
+}
+.table-hover > tbody > tr:hover > * {
+  --bs-table-bg-state: var(--cus-slate);
+}
+
+/* ---------------------------------------------------------------------
+ * Buttons — AF blue primary, Ghana green/red semantics, gold warning
+ * ------------------------------------------------------------------- */
+.btn-primary {
+  --bs-btn-bg: #0072ce;
+  --bs-btn-border-color: #0072ce;
+  --bs-btn-hover-bg: #005ba3;
+  --bs-btn-hover-border-color: #005ba3;
+  --bs-btn-active-bg: #005ba3;
+  --bs-btn-active-border-color: #005ba3;
+  --bs-btn-disabled-bg: #0072ce;
+  --bs-btn-disabled-border-color: #0072ce;
+  --bs-btn-focus-shadow-rgb: 0, 114, 206;
+}
+.btn-outline-primary {
+  --bs-btn-color: #0072ce;
+  --bs-btn-border-color: #0072ce;
+  --bs-btn-hover-bg: #0072ce;
+  --bs-btn-hover-border-color: #0072ce;
+  --bs-btn-active-bg: #005ba3;
+  --bs-btn-active-border-color: #005ba3;
+  --bs-btn-focus-shadow-rgb: 0, 114, 206;
+}
+.btn-success {
+  --bs-btn-bg: #006b3f;
+  --bs-btn-border-color: #006b3f;
+  --bs-btn-hover-bg: #005733;
+  --bs-btn-hover-border-color: #005733;
+  --bs-btn-active-bg: #005733;
+  --bs-btn-active-border-color: #005733;
+  --bs-btn-focus-shadow-rgb: 0, 107, 63;
+}
+.btn-outline-success {
+  --bs-btn-color: #006b3f;
+  --bs-btn-border-color: #006b3f;
+  --bs-btn-hover-bg: #006b3f;
+  --bs-btn-hover-border-color: #006b3f;
+  --bs-btn-focus-shadow-rgb: 0, 107, 63;
+}
+.btn-danger {
+  --bs-btn-bg: #ce1126;
+  --bs-btn-border-color: #ce1126;
+  --bs-btn-hover-bg: #a90e1f;
+  --bs-btn-hover-border-color: #a90e1f;
+  --bs-btn-active-bg: #a90e1f;
+  --bs-btn-active-border-color: #a90e1f;
+  --bs-btn-focus-shadow-rgb: 206, 17, 38;
+}
+.btn-outline-danger {
+  --bs-btn-color: #ce1126;
+  --bs-btn-border-color: #ce1126;
+  --bs-btn-hover-bg: #ce1126;
+  --bs-btn-hover-border-color: #ce1126;
+  --bs-btn-focus-shadow-rgb: 206, 17, 38;
+}
+.btn-warning {
+  --bs-btn-bg: #fcd116;
+  --bs-btn-border-color: #fcd116;
+  --bs-btn-color: #111827;
+  --bs-btn-hover-bg: #e6be05;
+  --bs-btn-hover-border-color: #e6be05;
+  --bs-btn-hover-color: #111827;
+  --bs-btn-active-bg: #e6be05;
+  --bs-btn-active-border-color: #e6be05;
+  --bs-btn-active-color: #111827;
+  --bs-btn-focus-shadow-rgb: 252, 209, 22;
+}
+.btn-secondary {
+  --bs-btn-bg: #111827;
+  --bs-btn-border-color: #111827;
+  --bs-btn-hover-bg: #000000;
+  --bs-btn-hover-border-color: #000000;
+  --bs-btn-active-bg: #000000;
+  --bs-btn-active-border-color: #000000;
+  --bs-btn-focus-shadow-rgb: 17, 24, 39;
+}
+.btn-outline-secondary {
+  --bs-btn-color: #374151;
+  --bs-btn-border-color: #9ca3af;
+  --bs-btn-hover-bg: #111827;
+  --bs-btn-hover-border-color: #111827;
+  --bs-btn-hover-color: #ffffff;
+  --bs-btn-active-bg: #111827;
+  --bs-btn-active-border-color: #111827;
+  --bs-btn-active-color: #ffffff;
+  --bs-btn-focus-shadow-rgb: 17, 24, 39;
+}
+
+/* Semantic colour utilities (icons, metrics, links) */
+.text-primary { color: #0072ce !important; }
+.text-success { color: #006b3f !important; }
+.text-danger  { color: #ce1126 !important; }
+.text-warning  { color: var(--cus-gold) !important; }
+.text-info    { color: var(--cus-blue-soft) !important; }
+.text-secondary { color: var(--cus-muted) !important; }
+.text-dark    { color: var(--cus-ink) !important; }
+.bg-primary   { background-color: #0072ce !important; }
+.bg-success   { background-color: #006b3f !important; }
+.bg-danger    { background-color: #ce1126 !important; }
+.bg-warning   { background-color: #fcd116 !important; }
+.bg-info      { background-color: #0072ce !important; }
+.bg-secondary { background-color: #6b7280 !important; }
+.bg-dark      { background-color: #111827 !important; }
+.border-primary { border-color: #0072ce !important; }
+
+/* ---------------------------------------------------------------------
+ * Badges — soft low-opacity pills with bold status text
+ * ------------------------------------------------------------------- */
+.badge {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.35em 0.65em;
+}
+.badge.text-bg-primary   { background-color: rgba(0, 114, 206, 0.14) !important; color: #005ba3 !important; }
+.badge.text-bg-success   { background-color: rgba(0, 107, 63, 0.14) !important; color: #006b3f !important; }
+.badge.text-bg-danger    { background-color: rgba(206, 17, 38, 0.14) !important; color: #ce1126 !important; }
+.badge.text-bg-warning   { background-color: rgba(252, 209, 22, 0.28) !important; color: #111827 !important; }
+.badge.text-bg-info      { background-color: rgba(93, 138, 168, 0.20) !important; color: #33566b !important; }
+.badge.text-bg-secondary { background-color: rgba(17, 24, 39, 0.10) !important; color: #111827 !important; }
+.badge.text-bg-dark      { background-color: #0f2942 !important; color: #ffffff !important; }
+.badge.text-bg-light     { background-color: #e9edf3 !important; color: #111827 !important; }
+
+/* ---------------------------------------------------------------------
+ * Forms — white inputs, charcoal labels, AF-blue focus ring
+ * ------------------------------------------------------------------- */
+.form-label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--cus-ink);
+}
+.form-control,
+.form-select {
+  border-color: #d1d5db;
+  color: var(--cus-ink);
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--cus-blue);
+  box-shadow: 0 0 0 0.2rem rgba(0, 114, 206, 0.18);
+}
+.input-group-text {
+  background-color: var(--cus-slate);
+  border-color: #d1d5db;
+  color: var(--cus-navy);
+}
+.form-text {
+  color: var(--cus-muted);
+}
+.form-check-input:checked {
+  background-color: var(--cus-blue);
+  border-color: var(--cus-blue);
+}
+
+/* Breadcrumb — charcoal labels, gray connectors */
+.breadcrumb {
+  margin-bottom: 0.75rem;
+}
+.breadcrumb-item a {
+  color: var(--cus-ink);
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  color: var(--cus-muted);
+}
+.breadcrumb-item.active {
+  color: var(--cus-blue);
+}
+
+/* Alerts keep Bootstrap semantics, softened borders */
+.alert {
+  border-width: 1px;
+}
+
+/* ---------------------------------------------------------------------
+ * Stacked table cards on very small screens
+ * ------------------------------------------------------------------- */
+@media (max-width: 575.98px) {
+  .table-responsive {
+    border: 0;
+  }
+  .table thead {
+    display: none;
+  }
+  .table tbody tr {
+    display: block;
+    border: 1px solid var(--cus-border);
+    border-radius: 0.375rem;
+    margin-bottom: 0.75rem;
+    background: var(--cus-white);
+  }
+  .table tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    border: 0;
+    border-bottom: 1px solid #f1f2f4;
+    text-align: right;
+    padding: 0.5rem 0.75rem;
+  }
+  .table tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--cus-muted);
+    text-align: left;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .table tbody td:last-child {
+    border-bottom: 0;
+  }
+  .table tbody td.text-end {
+    justify-content: flex-end;
+  }
+}
+
+/* ---------------------------------------------------------------------
+ * Footer — deep navy block with AF-blue top rule
+ * ------------------------------------------------------------------- */
+.cus-footer {
+  background-color: var(--cus-navy-deep);
+  color: rgba(255, 255, 255, 0.72);
+  border-top: 3px solid var(--cus-blue);
+}
+.cus-footer a {
+  color: var(--cus-white);
+}
+.cus-footer a:hover {
+  color: var(--cus-gold);
+}
+
+/* ---------------------------------------------------------------------
+ * Login — deep navy canvas, watermark, white card with gold/blue accent
+ * ------------------------------------------------------------------- */
+.login-page {
+  background-color: var(--cus-navy-deep);
+  color: var(--cus-white);
+}
+.login-page::before {
+  opacity: 0.16;
+  background-size: min(62vw, 620px) auto;
+}
+.login-card {
+  border: 0;
+  position: relative;
+  overflow: hidden;
+}
+.login-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  z-index: 2;
+  background: linear-gradient(90deg, var(--cus-gold) 0 50%, var(--cus-blue) 50% 100%);
+}
+.login-card .card-body {
+  padding-top: 1.9rem;
+}
+.login-shield {
+  color: var(--cus-blue);
+}
+.login-logo {
+  max-height: 74px;
+  max-width: 180px;
+}
+.login-hint {
+  color: rgba(255, 255, 255, 0.78);
+}
+.login-hint code {
+  background: rgba(255, 255, 255, 0.14);
+  color: var(--cus-white);
+}
+
+/* Progress bars follow the status palette */
+.progress-bar.bg-success { background-color: #006b3f !important; }
+.progress-bar.bg-danger  { background-color: #ce1126 !important; }
+.progress-bar.bg-warning { background-color: #fcd116 !important; }
+.progress-bar.bg-info    { background-color: #0072ce !important; }
+
+/* Print — dossier friendly */
+@media print {
+  nav, footer, .btn, form.btn-group {
+    display: none !important;
+  }
+  body::before {
+    display: none !important;
+  }
+  .card {
+    box-shadow: none !important;
+    border: 1px solid var(--cus-border) !important;
+  }
+}
+
+/* WhatsApp glyph � the bundled Bootstrap Icons set ships no bi-whatsapp,
+   so render it as a masked background that follows currentColor. */
+.bi-whatsapp::before {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.89 7.89 0 0 0 13.6 2.326zM7.994 14.521a6.57 6.57 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.558 6.558 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.348.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34l-.38-.007c-.133 0-.36.05-.55.248s-.724.708-.724 1.728 1.075 2.01 1.228 2.207c.154.198 2.103 3.21 5.102 4.502.713.308 1.269.497 1.701.635.714.227 1.363.195 1.88.118.575-.085 1.17-.478 1.333-1.138.164-.66.164-1.224.114-1.338-.05-.119-.182-.179-.379-.278z'/%3E%3C/svg%3E") no-repeat center / contain;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.89 7.89 0 0 0 13.6 2.326zM7.994 14.521a6.57 6.57 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.558 6.558 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.348.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34l-.38-.007c-.133 0-.36.05-.55.248s-.724.708-.724 1.728 1.075 2.01 1.228 2.207c.154.198 2.103 3.21 5.102 4.502.713.308 1.269.497 1.701.635.714.227 1.363.195 1.88.118.575-.085 1.17-.478 1.333-1.138.164-.66.164-1.224.114-1.338-.05-.119-.182-.179-.379-.278z'/%3E%3C/svg%3E") no-repeat center / contain;
+}
